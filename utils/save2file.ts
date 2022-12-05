@@ -1,5 +1,5 @@
 import { toHHMMSS } from './toHHMMSS';
-import { TProducts } from './index';
+import { TProducts } from '../index';
 import * as fs from 'fs';
 
 const delimiter = '\t';

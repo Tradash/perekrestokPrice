@@ -1,8 +1,8 @@
 import { Dispatcher, request } from 'undici';
 
 import { TContent, TPickup, TShops, TShopsProducts } from './types';
-import { save2file } from './save2file';
-import { toHHMMSS } from './toHHMMSS';
+import { save2file } from './utils/save2file';
+import { toHHMMSS } from './utils/toHHMMSS';
 import { delay } from './utils/utils';
 import { CTokens } from './CTokens';
 
