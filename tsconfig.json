@@ -1,0 +1,41 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "module": "commonjs",
+        "resolveJsonModule": true,
+        "noImplicitAny": true,
+        "removeComments": false,
+        "preserveConstEnums": true,
+        "alwaysStrict": true,
+        "strict": true,
+        "locale": "ru",
+        "moduleResolution": "node",
+        "target": "es2017",
+        "pretty": true,
+        "outDir": "./build",
+        "declaration": false,
+        "declarationMap": false,
+        "sourceMap": false,
+        "inlineSourceMap": true,
+        "inlineSources": true,
+        "typeRoots": [
+            "./src/@types",
+            "./node_modules/@types"
+        ]
+    },
+    "exclude": [
+        "node_modules",
+        "declaration",
+        "sql",
+        "views",
+        "public",
+        "**/*.html",
+        "test",
+        "doc",
+        ".helm",
+        ".vscode"
+    ],
+    "include": [
+        "**/*"
+    ]
+}
