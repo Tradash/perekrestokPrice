@@ -21,6 +21,7 @@ const getBody = async (d: Dispatcher.ResponseData) => {
 
 const limit = 1000;
 const minBadge = -25;
+const minOldPrice = 130000;
 
 const shopCoordinates = [
   { x: 55.58106168954288, y: 37.14664089895633 },
@@ -38,7 +39,7 @@ const shopCoordinates = [
 export type TProducts = { [key: number]: TShopsProducts };
 
 const prod: TProducts = {};
-const prodGroup = [2, 3];
+const prodGroup = [2, 3] //, 4, 5, 15, 13, 14];
 
 const startAppTime = new Date();
 
@@ -47,10 +48,10 @@ const countTokens = 10;
 let skipped = 0;
 
 const start = async () => {
-  console.log("генерация токенов...")
+  console.log('генерация токенов...');
   const cToken = new CTokens(url01, countTokens);
-  await cToken.generateTokens()
-    console.log("Созданы токены...")
+  await cToken.generateTokens();
+  console.log('Созданы токены...');
   const res = await request(url01, { method: 'GET' });
   const mCookie = decodeURIComponent((res.headers['set-cookie'] as string[])[0]);
   const s = mCookie.indexOf('accessToken');
@@ -147,7 +148,7 @@ const start = async () => {
         for (let i = 0; i < p.content.items.length; i++) {
           for (let j = 0; j < p.content.items[i].products.length; j++) {
             const badge = Math.round((p.content.items[i].products[j].priceTag.price / p.content.items[i].products[j].priceTag.grossPrice - 1) * 100);
-            if (badge <= minBadge) {
+            if (badge <= minBadge && minOldPrice<=p.content.items[i].products[j].priceTag.grossPrice) {
               prod[shop.id].products.push({
                 type: p.content.items[i].group.key,
                 subType: p.content.items[i].group.title,
