@@ -1,5 +1,5 @@
 import { request } from 'undici';
-import {delay} from "./utils/utils";
+import { delay } from "./utils/utils";
 
 export class CTokens {
   count: number;
@@ -18,8 +18,9 @@ export class CTokens {
       const s = mCookie.indexOf('accessToken');
       const e = mCookie.indexOf('refreshToken');
       this.tokens.push(mCookie.slice(s + 14, e - 3));
-      if (i<this.count-1) {
-          await delay(1000)
+      console.log("Создан токен....+", i + 1)
+      if (i < this.count - 1) {
+        await delay(1000)
       }
     }
   }
