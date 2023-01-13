@@ -52,12 +52,7 @@ const start = async () => {
   const cToken = new CTokens(url01, countTokens);
   await cToken.generateTokens();
   console.log('Созданы токены...');
-  const res = await request(url01, { method: 'GET' });
-  const mCookie = decodeURIComponent((res.headers['set-cookie'] as string[])[0]);
-  const s = mCookie.indexOf('accessToken');
-  const e = mCookie.indexOf('refreshToken');
-  const token = mCookie.slice(s + 14, e - 3);
-
+  const token = cToken.getSystemTokens()
   const h = {
     Authorization: `Bearer ${token}`,
   };
