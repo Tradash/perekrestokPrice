@@ -47,7 +47,8 @@ const countTokens = 10;
 
 let skipped = 0;
 
-const start = async () => {
+const start = async (): Promise<number> => {
+  let countUnit = 0
   console.log('генерация токенов...');
   const cToken = new CTokens(url01, countTokens);
   await cToken.generateTokens();
@@ -143,7 +144,7 @@ const start = async () => {
         for (let i = 0; i < p.content.items.length; i++) {
           for (let j = 0; j < p.content.items[i].products.length; j++) {
             const badge = Math.round((p.content.items[i].products[j].priceTag.price / p.content.items[i].products[j].priceTag.grossPrice - 1) * 100);
-            if (badge <= minBadge && minOldPrice<=p.content.items[i].products[j].priceTag.grossPrice) {
+            if (badge <= minBadge && minOldPrice <= p.content.items[i].products[j].priceTag.grossPrice) {
               prod[shop.id].products.push({
                 type: p.content.items[i].group.key,
                 subType: p.content.items[i].group.title,
@@ -157,6 +158,7 @@ const start = async () => {
           }
         }
       }
+      countUnit += prod[shop.id].products.length;
       console.log(
         'Обработан магазин',
         i * 100 + j,
@@ -176,6 +178,7 @@ const start = async () => {
   }
 
   save2file('final', prod, startAppTime);
+  return countUnit
 };
 /*
   const ps = body;
@@ -200,8 +203,8 @@ const start = async () => {
 };
 */
 start()
-  .then(() => {
-    console.log('Финишед...', Object.keys(prod).length);
+  .then(x => {
+    console.log('Финишед...', Object.keys(prod).length, "Позиций сохранено: ", x);
   })
   .catch((e) => {
     console.log('Error', e);
