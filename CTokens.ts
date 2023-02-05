@@ -5,12 +5,16 @@ export class CTokens {
   count: number;
   tokens: string[];
   token: string;
+  initialCount: number;
   url: string;
+  delay: number;
   constructor(url: string, count: number) {
     this.url = url;
     this.count = count;
+    this.initialCount = count;
     this.tokens = [];
     this.token = '';
+    this.delay = 200;
   }
 
   async generateTokens() {
@@ -44,16 +48,27 @@ export class CTokens {
 
       if (counter === 0) {
         console.error('Не удалось получить токен доступа. Работа остановлена ');
-        process.exit(1);
       }
 
       if (i < this.count - 1) {
-        await delay(1000);
+        await delay(1500);
       }
+    }
+    if (this.tokens.length < 2) {
+      console.error('Не удалось получить достаточно токенов доступа. Работа остановлена ');
+      process.exit(1)
+    } else {
+      if (this.tokens.length !== this.count + 1) {
+        this.count = this.tokens.length - 1
+      }
+
     }
   }
 
   async getTokens(i: number) {
+
+    await delay((this.initialCount - this.count + 1) * this.delay)
+
     return {
       Authorization: `Bearer ${this.tokens[i % this.count]}`,
     };
